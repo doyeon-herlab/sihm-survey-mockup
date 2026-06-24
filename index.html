@@ -4,138 +4,131 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SIHM 근골격계 설문조사 목록 — 재기획 목업</title>
+<script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
 <style>
-html,body{margin:0;height:100%;background:#f5f8f6;overflow:hidden;}
+:root{--color-primary:#48aa66;}
+html,body{font-family:"Pretendard",-apple-system,BlinkMacSystemFont,system-ui,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
-#fit{width:100%;overflow:hidden;}
-#page{width:1536px;transform-origin:top left;position:relative;display:flex;flex-direction:column;font-family:"Pretendard",-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:#f5f8f6;color:#1F2937;line-height:1.5;}
-#page *{box-sizing:border-box;}
-.gnb{display:flex;align-items:center;justify-content:space-between;height:64px;flex:none;background:#fff;padding:0 24px;border-bottom:1px solid #E5E7EB;}
-.gtab{font-size:16px;font-weight:500;color:#979797;}
-.gtab.on{color:#61b166;font-weight:700;border-bottom:2px solid #61b166;padding-bottom:8px;}
-.main{flex:1;display:flex;align-items:stretch;}
-.nav{width:200px;flex:none;background:#fff;border-right:1px solid #E5E7EB;padding:18px 16px;}
-.ncat{font-size:15px;font-weight:600;color:#6B7280;display:flex;align-items:center;gap:8px;margin:0 0 10px;}
-.ncat.on{color:#48aa66;}
-.nitem{font-size:14.5px;font-weight:500;color:#9CA3AF;padding:8px 10px;border-radius:4px;margin-bottom:2px;}
-.nitem.on{color:#48aa66;background:#edf6ef;}
-.content{flex:1;min-width:0;padding:18px 20px;display:flex;flex-direction:column;}
-.body{flex:1;display:flex;gap:16px;align-items:stretch;}
-.tree{width:230px;flex:none;border:1px solid #E5E7EB;background:#fff;display:flex;flex-direction:column;}
-.tree-h{font-size:15px;font-weight:500;color:#6B7280;padding:13px 14px;border-bottom:1px solid #E5E7EB;}
-.tnode{display:flex;align-items:center;gap:5px;font-size:14px;color:#979797;padding:7px 10px;white-space:nowrap;}
-.tnode.on{color:#4fb26d;font-weight:700;background:rgba(79,178,109,0.10);}
-.tg{width:16px;height:16px;border:1px solid #D1D5DB;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;color:#838383;font-size:13px;flex:none;}
-.tbl-wrap{flex:1;min-width:0;background:#F6FAF8;border:1px solid #EEF2EE;}
-.thead th{font-size:15px;font-weight:500;color:#9CA3AF;height:51px;text-align:center;padding:0 14px;white-space:nowrap;background:#F9FAFB;}
-.trow td{height:54px;font-size:15px;color:#1F2937;border-bottom:1px solid #E5E7EB;padding:0 14px;text-align:center;}
-.trow:hover{background:#E9EEEB;}
-.lbl{display:inline-flex;align-items:center;height:30px;border-radius:30px;font-size:14px;padding:0 13px;margin:2px 3px;}
-.chip{display:inline-flex;align-items:center;gap:5px;height:26px;border-radius:30px;font-size:13px;padding:0 12px;white-space:nowrap;}
-.dot{width:7px;height:7px;border-radius:50%;}
-.tbtn{width:40px;height:40px;border-radius:4px;border:1px solid #48AA66;background:#fff;color:#48AA66;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:24px;}
-.tbtn:hover{background:#F3F4F6;color:#3E8A56;border-color:#3E8A56;}
-.tbtn.ghost{border:none;color:#6B7280;}
-.tbtn.ghost:hover{color:#3E8A56;background:#F3F4F6;}
-.bp{height:38px;background:#48AA66;color:#fff;border:none;border-radius:4px;font-size:14px;padding:0 14px;display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-family:inherit;white-space:nowrap;}
-.bp:hover{background:#3E8A56;}
-.bo{height:38px;background:#fff;color:#4B5563;border:1px solid #D1D5DB;border-radius:4px;font-size:14px;padding:0 14px;display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-family:inherit;white-space:nowrap;}
-.bo:hover{background:#F3F4F6;}
-.back{width:32px;height:32px;border-radius:50%;border:1px solid #D1D5DB;background:#fff;display:inline-flex;align-items:center;justify-content:center;color:#6B7280;font-size:22px;flex:none;}
 </style>
 </head>
-<body>
-<h2 class="sr-only">SIHM 근골격계 설문조사 목록 재기획 목업 — 응답일시 컬럼, 응답 누적, 무증상 대시 표기, 응답률 100% 초과 시 파란 차트</h2>
+<body class="h-screen flex flex-col">
+<h2 class="sr-only">SIHM 근골격계 설문조사 목록 재기획 목업 — 실제 반응형 레이아웃에 응답일시 컬럼 추가, 응답 누적, 무증상 대시 표기, 응답률 100% 초과 시 파란 차트</h2>
+<div id="root"><div class="flex flex-col h-screen overflow-hidden">
 
-<div id="fit">
-<div id="page">
-
-  <div class="gnb">
-    <div style="display:flex;align-items:center;gap:36px;">
-      <span style="font-weight:700;color:#48AA66;font-size:22px;letter-spacing:1px;">SIHM</span>
-      <div style="display:flex;gap:32px;align-items:center;">
-        <span class="gtab">사업장 관리</span><span class="gtab">화학물질</span><span class="gtab on">근골격계 부담작업</span>
+  <header class="w-full h-[58px] 2xl:h-[80px] bg-white flex items-center justify-between px-5 border-b border-gray-100">
+    <div class="flex h-full items-center gap-[105px] 2xl:gap-[140px]">
+      <span class="mt-[4px] text-[#48aa66] font-bold text-[24px] 2xl:text-[30px] tracking-wide cursor-pointer">SIHM</span>
+      <div class="flex h-full gap-6 2xl:gap-8 mt-[4px] 2xl:mt-[5px]">
+        <button class="h-full px-3 2xl:px-4 text-[12.8px] 2xl:text-[17px] text-[#979797] font-medium hover:text-[#61b166]">사업장 관리</button>
+        <button class="h-full px-3 2xl:px-4 text-[12.8px] 2xl:text-[17px] text-[#979797] font-medium hover:text-[#61b166]">화학물질</button>
+        <button class="h-full px-3 2xl:px-4 text-[12.8px] 2xl:text-[17px] text-[#61b166] font-bold relative">근골격계 부담작업<span class="absolute left-[10%] bottom-0.5 w-[80%] h-0.5 bg-[#61b166]"></span></button>
       </div>
     </div>
-    <span style="font-size:15px;font-weight:700;color:#3a3a3a;display:flex;align-items:center;gap:8px;">5. 보고서 테스트 <i class="mdi mdi-account-circle-outline" style="font-size:30px;color:#9CA3AF;"></i></span>
-  </div>
-
-  <div class="main">
-
-    <div class="nav">
-      <div class="ncat"><i class="mdi mdi-file-document-outline" style="font-size:21px;"></i> 작업 관리</div>
-      <div class="nitem" style="margin-bottom:14px;">부서별 작업 목록</div>
-      <div class="ncat on"><i class="mdi mdi-alert-outline" style="font-size:21px;"></i> 유해요인조사</div>
-      <div class="nitem on">조사 목록</div>
-      <div class="nitem" style="margin-bottom:14px;">조사 보고서</div>
-      <div class="ncat"><i class="mdi mdi-clipboard-text-outline" style="font-size:21px;"></i> 개선 활동</div>
-      <div class="nitem">개선대책 목록</div>
-      <div class="nitem">점검 보고서</div>
+    <div class="flex items-center gap-2 ml-auto">
+      <span class="text-[11.3px] 2xl:text-[15px] text-[#3a3a3a] font-bold">5. 보고서 테스트</span>
+      <svg viewBox="0 0 24 24" class="w-[31px] h-[31px] 2xl:w-[42px] 2xl:h-[42px] text-gray-300"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M7.07,18.28C7.5,17.38 10.12,16.5 12,16.5C13.88,16.5 16.5,17.38 16.93,18.28C15.57,19.36 13.86,20 12,20C10.14,20 8.43,19.36 7.07,18.28M18.36,16.83C16.93,15.09 13.46,14.5 12,14.5C10.54,14.5 7.07,15.09 5.64,16.83C4.62,15.5 4,13.82 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,13.82 19.38,15.5 18.36,16.83M12,6C10.06,6 8.5,7.56 8.5,9.5C8.5,11.44 10.06,13 12,13C13.94,13 15.5,11.44 15.5,9.5C15.5,7.56 13.94,6 12,6Z" style="fill:currentcolor"></path></svg>
     </div>
+  </header>
 
-    <div class="content">
+  <div class="flex h-[100vh]">
 
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:nowrap;">
-        <span class="back"><i class="mdi mdi-chevron-left"></i></span>
-        <span style="font-size:20px;color:#333;white-space:nowrap;">조사 목록</span>
-        <i class="mdi mdi-chevron-right" style="font-size:20px;color:#9CA3AF;"></i>
-        <span style="font-size:20px;font-weight:700;color:#333;white-space:nowrap;">수시조사_002</span>
-        <div style="flex:1;"></div>
-        <span style="display:inline-flex;align-items:center;gap:6px;font-size:14px;color:#0063F7;white-space:nowrap;">
-          <svg width="22" height="22" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="#E5E7EB" stroke-width="4"/><circle cx="18" cy="18" r="15" fill="none" stroke="#0063F7" stroke-width="4" stroke-dasharray="94.2" stroke-dashoffset="0" transform="rotate(-90 18 18)" stroke-linecap="round"/></svg>
-          175% (7/4)
-        </span>
-        <span class="chip" style="background:rgba(206,78,31,0.15);color:#CE4E1F;"><span class="dot" style="background:#CE4E1F;"></span>통증 2</span>
-        <span class="chip" style="background:rgba(92,121,201,0.15);color:#5C79C9;"><span class="dot" style="background:#5C79C9;"></span>관리 3</span>
-        <span class="chip" style="background:rgba(72,170,102,0.15);color:#3E8A56;"><span class="dot" style="background:#48AA66;"></span>무증상 2</span>
-        <div style="display:flex;align-items:center;gap:6px;height:38px;border:1px solid #D1D5DB;border-radius:4px;padding:0 12px;background:#fff;width:180px;flex:none;">
-          <i class="mdi mdi-magnify" style="font-size:20px;color:#9CA3AF;"></i><span style="font-size:13px;color:#9CA3AF;">검색(구성원명)</span>
-        </div>
-        <button class="bp"><i class="mdi mdi-plus" style="font-size:20px;"></i> 설문 링크 생성</button>
-        <button class="bo"><i class="mdi mdi-microsoft-excel" style="font-size:19px;color:#48AA66;"></i> 엑셀 다운로드</button>
-      </div>
-
-      <div class="body">
-
-        <div class="tree">
-          <div class="tree-h">부서 목록</div>
-          <div style="padding:8px;flex:1;">
-            <div class="tnode on"><span class="tg">−</span> 5. 보고서 테스트</div>
-            <div class="tnode" style="padding-left:22px;"><span class="tg">−</span> 생산부</div>
-            <div class="tnode" style="padding-left:46px;">생산1팀</div>
-            <div class="tnode" style="padding-left:22px;"><span class="tg">−</span> 품질관리부</div>
-            <div class="tnode" style="padding-left:46px;"><span class="tg">−</span> 품질보증과</div>
-            <div class="tnode" style="padding-left:70px;">인증표준팀</div>
+    <nav class="relative w-[150px] 2xl:w-[200px] h-[calc(100vh-54px)] 2xl:h-[calc(100vh-72px)] bg-white pt-[12px] 2xl:pt-[16px] px-[12px] 2xl:px-[16px] shrink-0 border-r border-gray-100">
+      <ul>
+        <li>
+          <div class="flex items-center gap-1.5 2xl:gap-2 py-2 2xl:py-2.5 px-3 2xl:px-3.5 border-b border-gray-100 mb-2 pb-2">
+            <svg viewBox="0 0 24 24" class="text-gray-500 w-[20px] 2xl:w-[22px]"><path d="M6,2A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6M6,4H13V9H18V20H6V4M8,12V14H16V12H8M8,16V18H13V16H8Z" style="fill:currentcolor"></path></svg>
+            <span class="text-[12px] 2xl:text-[15px] text-gray-500 font-semibold">작업 관리</span>
           </div>
-          <div style="padding:10px;border-top:1px solid #F3F4F6;">
-            <div style="display:flex;align-items:center;justify-content:space-between;height:34px;border:1px solid #D1D5DB;border-radius:4px;padding:0 11px;">
-              <span style="font-size:13px;color:#9CA3AF;">검색</span><i class="mdi mdi-magnify" style="font-size:17px;color:#9CA3AF;"></i>
+          <ul class="mt-1 mb-3"><li><a class="block pl-7 2xl:pl-9 py-[7px] 2xl:py-[9px] pr-2 rounded-md text-[11.5px] 2xl:text-[14.5px] text-gray-400 hover:bg-[#eef7f1] hover:text-[#48aa66]">부서별 작업 목록</a></li></ul>
+        </li>
+        <li>
+          <div class="flex items-center gap-1.5 2xl:gap-2 py-2 2xl:py-2.5 px-3 2xl:px-3.5 border-b border-gray-100 mb-2 pb-2">
+            <svg viewBox="0 0 24 24" class="text-[#48aa66] w-[20px] 2xl:w-[22px]"><path d="M12,2L1,21H23M12,6L19.53,19H4.47M11,10V14H13V10M11,16V18H13V16" style="fill:currentcolor"></path></svg>
+            <span class="text-[12px] 2xl:text-[15px] text-[#48aa66] font-semibold">유해요인조사</span>
+          </div>
+          <ul class="mt-1 mb-3 space-y-1">
+            <li><a class="block pl-7 2xl:pl-9 py-[7px] 2xl:py-[9px] pr-2 rounded-md text-[11.5px] 2xl:text-[14.5px] font-medium bg-[#edf6ef] text-[#48aa66]">조사 목록</a></li>
+            <li><a class="block pl-7 2xl:pl-9 py-[7px] 2xl:py-[9px] pr-2 rounded-md text-[11.5px] 2xl:text-[14.5px] text-gray-400 hover:bg-[#eef7f1] hover:text-[#48aa66]">조사 보고서</a></li>
+          </ul>
+        </li>
+        <li>
+          <div class="flex items-center gap-1.5 2xl:gap-2 py-2 2xl:py-2.5 px-3 2xl:px-3.5 border-b border-gray-100 mb-2 pb-2">
+            <svg viewBox="0 0 24 24" class="text-gray-500 w-[20px] 2xl:w-[22px]"><path d="M19,3H14.82C14.25,1.44 12.53,0.64 11,1.2C10.14,1.5 9.5,2.16 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M7,7H17V5H19V19H5V5H7V7Z" style="fill:currentcolor"></path></svg>
+            <span class="text-[12px] 2xl:text-[15px] text-gray-500 font-semibold">개선 활동</span>
+          </div>
+          <ul class="mt-1 mb-3 space-y-1">
+            <li><a class="block pl-7 2xl:pl-9 py-[7px] 2xl:py-[9px] pr-2 rounded-md text-[11.5px] 2xl:text-[14.5px] text-gray-400 hover:bg-[#eef7f1] hover:text-[#48aa66]">개선대책 목록</a></li>
+            <li><a class="block pl-7 2xl:pl-9 py-[7px] 2xl:py-[9px] pr-2 rounded-md text-[11.5px] 2xl:text-[14.5px] text-gray-400 hover:bg-[#eef7f1] hover:text-[#48aa66]">점검 보고서</a></li>
+          </ul>
+        </li>
+      </ul>
+      <span class="absolute bottom-1 2xl:bottom-2 text-[10px] 2xl:text-xs text-gray-300 font-medium">v2.14.0</span>
+    </nav>
+
+    <main class="flex-1 flex h-[calc(100vh-54px)] 2xl:h-[calc(100vh-72px)] bg-[#f5f8f6] overflow-y-auto">
+      <div class="flex-1 w-full flex flex-col px-4 py-4">
+
+        <div class="w-full h-[30px] 2xl:h-[40px] flex pl-2 mt-[2px] 2xl:mt-[6px] mb-[12px] 2xl:mb-[18px] items-center justify-between">
+          <div class="flex items-center gap-1 shrink-0">
+            <button type="button" class="border border-[#cbcbcb] rounded-full p-[2px] mr-1 bg-white hover:brightness-95"><svg viewBox="0 0 24 24" class="text-gray-500" style="width:1.5rem;height:1.5rem"><path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" style="fill:currentcolor"></path></svg></button>
+            <h2 class="text-[15px] 2xl:text-[20px] font-bold text-[#333333] whitespace-nowrap">조사 목록</h2>
+            <svg viewBox="0 0 24 24" class="text-gray-400" style="width:1.5rem;height:1.5rem"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" style="fill:currentcolor"></path></svg>
+            <span class="font-bold text-[#4fb26d] text-[15px] 2xl:text-[20px] whitespace-nowrap">수시조사_002</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="flex items-center text-xs 2xl:text-sm font-bold whitespace-nowrap">
+              <svg width="24" height="24" class="inline-block align-middle mr-2"><circle stroke="#e5e7eb" fill="transparent" stroke-width="4" r="10" cx="12" cy="12"></circle><circle stroke="#0063F7" fill="transparent" stroke-width="4" stroke-dasharray="62.83185307179586" stroke-dashoffset="0" r="10" cx="12" cy="12" transform="rotate(-90 12 12)"></circle></svg>
+              <span class="mr-1" style="color:#0063F7">175%</span><span class="text-gray-500 font-normal">(7/4)</span>
+            </span>
+            <div class="flex gap-2">
+              <span class="inline-flex items-center px-3 py-1 rounded-full border text-xs font-semibold bg-[#ffedd5] border-[#ce4e1f4d] text-[#ce4e1f] whitespace-nowrap"><span class="w-2 h-2 rounded-full mr-1 bg-[#ce4e1f]"></span>통증 2</span>
+              <span class="inline-flex items-center px-3 py-1 rounded-full border text-xs font-semibold bg-[#d1e6fe] border-[#4c9eeb4d] text-[#4c9eeb] whitespace-nowrap"><span class="w-2 h-2 rounded-full mr-1 bg-[#4c9eeb]"></span>관리 3</span>
+              <span class="inline-flex items-center px-3 py-1 rounded-full border text-xs font-semibold bg-[#e7f7ea] border-[#b6e2c6] text-[#22b573] whitespace-nowrap"><span class="w-2 h-2 rounded-full mr-1 bg-[#22b573]"></span>무증상 2</span>
+            </div>
+            <div class="relative">
+              <input placeholder="검색(구성원명)" class="w-[200px] 2xl:w-[300px] px-3 py-1.5 pl-[30px] border border-gray-300 rounded text-[10px] 2xl:text-[15px] bg-white focus:outline-none focus:border-[#48aa66] hover:border-[#48aa66]" type="text">
+              <svg viewBox="0 0 24 24" class="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400 w-[15px] 2xl:w-[20px]"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" style="fill:currentcolor"></path></svg>
+            </div>
+            <button class="flex justify-center items-center rounded font-normal whitespace-nowrap h-[36px] text-[10px] 2xl:text-[15px] px-[15px] bg-[#48aa66] text-white hover:brightness-95"><svg viewBox="0 0 24 24" class="mr-[5px]" style="width:1.2rem;height:1.2rem"><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" style="fill:currentcolor"></path></svg>설문 링크 생성</button>
+            <button class="flex justify-center items-center rounded font-normal whitespace-nowrap h-[36px] text-[10px] 2xl:text-[15px] px-[15px] text-gray-600 border border-gray-300 bg-white hover:brightness-95"><svg viewBox="0 0 24 24" class="mr-[5px]" style="width:1.2rem;height:1.2rem"><path d="M21.17 3.25Q21.5 3.25 21.76 3.5 22 3.74 22 4.08V19.92Q22 20.26 21.76 20.5 21.5 20.75 21.17 20.75H7.83Q7.5 20.75 7.24 20.5 7 20.26 7 19.92V17H2.83Q2.5 17 2.24 16.76 2 16.5 2 16.17V7.83Q2 7.5 2.24 7.24 2.5 7 2.83 7H7V4.08Q7 3.74 7.24 3.5 7.5 3.25 7.83 3.25M13.88 19.5V17H8.25V19.5M13.88 15.75V12.63H12V15.75M13.88 11.38V8.25H12V11.38M13.88 7V4.5H8.25V7M20.75 19.5V17H15.13V19.5M20.75 15.75V12.63H15.13V15.75M20.75 11.38V8.25H15.13V11.38M20.75 7V4.5H15.13V7Z" style="fill:currentcolor"></path></svg>엑셀 다운로드</button>
+          </div>
+        </div>
+
+        <div class="flex w-full flex-1 min-h-0">
+
+          <div class="w-[210px] 2xl:w-[240px] mr-[10px] h-full shrink-0">
+            <div class="bg-white border-[#DADEE0] border-[0.5px] flex flex-col rounded-lg h-full">
+              <div class="px-4 2xl:px-[21px] py-2.5 2xl:py-[13px] border-b border-[#DADEE0] rounded-t-lg"><h3 class="text-[11px] 2xl:text-[14.6px] text-[#979797]">부서 목록</h3></div>
+              <div class="flex-1 overflow-auto min-h-0 py-1 mx-[5px]" id="tree"></div>
+              <div class="p-2 border-t border-[#DADEE0] rounded-b-lg">
+                <div class="relative">
+                  <input placeholder="검색" class="w-full px-3 py-1.5 pr-[30px] border border-gray-300 rounded text-[10px] 2xl:text-[15px] bg-white focus:outline-none focus:border-[#48aa66] hover:border-[#48aa66]" type="text">
+                  <svg viewBox="0 0 24 24" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 w-[15px] 2xl:w-[20px]"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" style="fill:currentcolor"></path></svg>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="tbl-wrap">
-          <table style="width:100%;border-collapse:collapse;">
-            <thead class="thead"><tr>
-              <th>구성원명</th><th style="width:90px;">나이</th>
-              <th style="width:220px;">응답일시</th>
-              <th>유증상 부위 / 판정</th><th style="width:110px;">결과</th><th style="width:90px;">삭제</th>
-            </tr></thead>
-            <tbody id="rows"></tbody>
-          </table>
-        </div>
+          <div class="overflow-auto w-full h-full">
+            <table class="relative w-full text-[12px] 2xl:text-[18px] border-separate [border-spacing:0] table-fixed">
+              <thead class="sticky top-0 z-10"><tr class="bg-[#f6f8f6]" id="thead"></tr></thead>
+              <tbody id="rows"></tbody>
+            </table>
+          </div>
 
+        </div>
       </div>
-    </div>
-  </div>
+    </main>
 
-</div>
-</div>
+  </div>
+</div></div>
 
 <script>
-const T={pain:{bg:"rgba(206,78,31,0.302)",fg:"#CE4E1F"},mng:{bg:"rgba(92,121,201,0.302)",fg:"#5C79C9"},ok:{bg:"rgba(72,170,102,0.22)",fg:"#3E8A56"}};
+const TH=["구성원명|140","나이|70","응답일시|200","유증상 부위 / 판정|240","결과|80","삭제|70"];
+document.getElementById("thead").innerHTML=TH.map((c,i)=>{const[t,w]=c.split("|");return `<th class="px-4 py-3 2xl:py-4 text-[11px] 2xl:text-[15px] font-medium text-[#ababab] tracking-wider border-t ${i<TH.length-1?'border-r':''} border-b border-[#dadee0]/70 bg-[#f6f8f6] w-[${w}px]"><div class="flex items-center w-full justify-center leading-tight">${t}</div></th>`;}).join("");
+
+const P={pain:"text-[#ce4e1f] bg-[#ffedd5] border-[#ce4e1f]/30",mng:"text-[#4c9eeb] bg-[#d1e6fe] border-[#4c9eeb]/30"};
 const rows=[
  {name:"홍길동",age:41,at:"2026-06-01 15:22",tags:[["무증상","ok"]]},
  {name:"김민준",age:30,at:"2026-06-10 09:14",tags:[["무증상","ok"]]},
@@ -146,30 +139,27 @@ const rows=[
  {name:"김민준",age:30,at:"2026-06-24 11:20",tags:[["관리대상자(목,어깨)","mng"]]},
 ];
 rows.sort((a,b)=>a.at<b.at?-1:1);
-const pill=t=>`<span class="lbl" style="background:${T[t[1]].bg};color:${T[t[1]].fg};">${t[0]}</span>`;
-const judge=tags=>tags.every(t=>t[1]==="ok")?'<span style="color:#9CA3AF;">-</span>':tags.filter(t=>t[1]!=="ok").map(pill).join("");
-const tb=document.getElementById("rows");
-rows.forEach(r=>{
- const tr=document.createElement("tr");tr.className="trow";
- tr.innerHTML=`<td>${r.name}</td><td style="color:#6B7280;">${r.age}</td>
-  <td style="white-space:nowrap;"><span style="font-variant-numeric:tabular-nums;">${r.at}</span></td>
-  <td>${judge(r.tags)}</td>
-  <td><button class="tbtn" aria-label="결과"><i class="mdi mdi-table"></i></button></td>
-  <td><button class="tbtn ghost" aria-label="삭제"><i class="mdi mdi-trash-can-outline"></i></button></td>`;
- tb.appendChild(tr);
-});
-const BASE_W=1536,MAX_SCALE=1.4;
-const fit=()=>{
- const f=document.getElementById("fit"),p=document.getElementById("page");
- const w=document.documentElement.clientWidth,h=document.documentElement.clientHeight;
- const s=Math.min(MAX_SCALE,w/BASE_W);
- const x=Math.max(0,(w-BASE_W*s)/2);
- p.style.minHeight=(h/s)+"px";
- p.style.transform="translateX("+x+"px) scale("+s+")";
- f.style.width=w+"px";
- f.style.height=(p.offsetHeight*s)+"px";
-};
-fit();window.addEventListener("resize",fit);setTimeout(fit,300);setTimeout(fit,900);setTimeout(fit,1600);
+const pill=t=>`<span class="inline-block flex-shrink-0 px-3.5 py-1 rounded-full font-semibold border ${P[t[1]]}">${t[0]}</span>`;
+const judge=tags=>tags.every(t=>t[1]==="ok")?'<span class="text-[#333333]">-</span>':`<div class="flex justify-center w-full gap-2">${tags.filter(t=>t[1]!=="ok").map(pill).join("")}</div>`;
+const tdC="px-4 py-2 2xl:py-3 border-b text-center text-[11px] 2xl:text-[15px] text-[#333333] font-normal border-[#dadee0]/45";
+document.getElementById("rows").innerHTML=rows.map(r=>`<tr class="hover:bg-[#e9eeeb] bg-[#f6f8f6]">
+ <td class="${tdC} border-r whitespace-nowrap overflow-hidden text-ellipsis">${r.name}</td>
+ <td class="${tdC} border-r">${r.age}</td>
+ <td class="${tdC} border-r whitespace-nowrap" style="font-variant-numeric:tabular-nums">${r.at}</td>
+ <td class="${tdC} border-r">${judge(r.tags)}</td>
+ <td class="${tdC} border-r !px-0"><button class="flex hover:bg-gray-100 p-[4px] 2xl:p-[8px] mx-auto justify-center items-center text-[#48aa66] border-[#48aa66] rounded border bg-white" aria-label="결과"><svg viewBox="0 0 24 24" class="w-[20px] 2xl:w-[24px]"><path d="M5,4H19A2,2 0 0,1 21,6V18A2,2 0 0,1 19,20H5A2,2 0 0,1 3,18V6A2,2 0 0,1 5,4M5,8V12H11V8H5M13,8V12H19V8H13M5,14V18H11V14H5M13,14V18H19V14H13Z" style="fill:currentcolor"></path></svg></button></td>
+ <td class="${tdC}"><button aria-label="삭제"><svg viewBox="0 0 24 24" class="text-gray-400 hover:text-[#e53e3e]" style="width:1.5rem;height:1.5rem"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" style="fill:currentcolor"></path></svg></button></td>
+</tr>`).join("");
+
+const toggle='<button class="mr-1.5 p-0.5 rounded flex items-center justify-center border border-gray-300" style="width:16px;height:16px"><svg viewBox="0 0 24 24" class="text-[#838383]" style="width:.75rem;height:.75rem"><path d="M19,13H5V11H19V13Z" style="fill:currentcolor"></path></svg></button>';
+const tnode=(label,pad,active,leaf)=>`<div class="flex w-full items-center py-2 2xl:py-[10px] px-2 2xl:px-[5px] rounded-md cursor-pointer text-[10.5px] 2xl:text-[13.97px] ${active?'bg-[#4fb26d1a] text-[#4fb26d] font-bold':'text-[#979797] hover:bg-[#00000008]'}" style="padding-left:${pad}px">${leaf?'<span style="width:10px;display:inline-block"></span>':toggle}<span class="select-none">${label}</span></div>`;
+document.getElementById("tree").innerHTML=
+ tnode("5. 보고서 테스트",5,true,false)+
+ tnode("생산부",18,false,false)+
+ tnode("생산1팀",31,false,true)+
+ tnode("품질관리부",18,false,false)+
+ tnode("품질보증과",31,false,false)+
+ tnode("인증표준팀",44,false,true);
 </script>
 </body>
 </html>
