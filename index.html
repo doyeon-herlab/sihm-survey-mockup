@@ -158,12 +158,14 @@ rows.forEach(r=>{
   <td><button class="tbtn ghost" aria-label="삭제"><i class="mdi mdi-trash-can-outline"></i></button></td>`;
  tb.appendChild(tr);
 });
+const MAX_SCALE=1.4;
 const fit=()=>{
  const f=document.getElementById("fit"),p=document.getElementById("page");
  const w=document.documentElement.clientWidth,h=document.documentElement.clientHeight;
- const s=w/1280;
+ const s=Math.min(MAX_SCALE,w/1280);
+ const x=Math.max(0,(w-1280*s)/2);
  p.style.minHeight=(h/s)+"px";
- p.style.transform="scale("+s+")";
+ p.style.transform="translateX("+x+"px) scale("+s+")";
  f.style.width=w+"px";
  f.style.height=(p.offsetHeight*s)+"px";
 };
