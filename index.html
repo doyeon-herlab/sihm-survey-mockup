@@ -163,6 +163,9 @@ const pill=t=>`<span class="inline-block flex-shrink-0 px-3.5 py-1 rounded-full 
 const judge=tags=>tags.every(t=>t[1]==="ok")?'<span class="text-[#333333]">-</span>':`<div class="flex justify-center w-full gap-2">${tags.filter(t=>t[1]!=="ok").map(pill).join("")}</div>`;
 const tdC="px-4 py-2 2xl:py-3 border-b text-center text-[11px] 2xl:text-[15px] text-[#333333] font-normal border-[#dadee0]/45";
 
+const TH=["구성원명|180","나이|70","응답일시|200","유증상 부위 / 판정|230","결과|80","삭제|70"];
+document.getElementById("thead").innerHTML=TH.map((c,i)=>{const[t,w]=c.split("|");return `<th class="px-4 py-3 2xl:py-4 text-[11px] 2xl:text-[15px] font-medium text-[#ababab] tracking-wider border-t ${i<TH.length-1?'border-r':''} border-b border-[#dadee0]/70 bg-[#f6f8f6] w-[${w}px]"><div class="flex items-center w-full justify-center leading-tight">${t}</div></th>`;}).join("");
+
 function dupKey(r){return r.name+"|"+r.age;}
 function render(){
  rows.sort((a,b)=>a.at<b.at?-1:1);
