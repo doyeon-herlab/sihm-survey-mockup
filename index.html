@@ -13,7 +13,7 @@ html,body{font-family:"Pretendard",-apple-system,BlinkMacSystemFont,system-ui,"A
 </style>
 </head>
 <body class="h-screen flex flex-col">
-<h2 class="sr-only">SIHM 근골격계 설문조사 목록 재기획 목업 — 실제 반응형 레이아웃에 응답일시 컬럼 추가, 응답 누적, 무증상 대시 표기, 응답률 100% 초과 시 파란 차트</h2>
+<h2 class="sr-only">SIHM 근골격계 설문조사 목록 재기획 목업 — 응답일시 컬럼, 응답 누적, 무증상 대시, 응답률 100% 초과 파란 차트, 중복 의심 응답 모달</h2>
 <div id="root"><div class="flex flex-col h-screen overflow-hidden">
 
   <header class="w-full h-[58px] 2xl:h-[80px] bg-white flex items-center justify-between px-5 border-b border-gray-100">
@@ -124,12 +124,26 @@ html,body{font-family:"Pretendard",-apple-system,BlinkMacSystemFont,system-ui,"A
   </div>
 </div></div>
 
-<script>
-const TH=["구성원명|180","나이|70","응답일시|200","유증상 부위 / 판정|230","결과|80","삭제|70"];
-document.getElementById("thead").innerHTML=TH.map((c,i)=>{const[t,w]=c.split("|");return `<th class="px-4 py-3 2xl:py-4 text-[11px] 2xl:text-[15px] font-medium text-[#ababab] tracking-wider border-t ${i<TH.length-1?'border-r':''} border-b border-[#dadee0]/70 bg-[#f6f8f6] w-[${w}px]"><div class="flex items-center w-full justify-center leading-tight">${t}</div></th>`;}).join("");
+<div id="modal" class="hidden fixed inset-0 z-50 bg-black/45 flex items-start justify-center" onclick="if(event.target===this)closeModal()">
+  <div class="bg-white rounded-lg mt-[6vh] w-[600px] max-w-[92%] max-h-[86vh] flex flex-col shadow-2xl">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+      <div class="flex items-center gap-2 text-[#b45309]">
+        <svg viewBox="0 0 24 24" style="width:24px;height:24px"><path d="M13,10H11V6H13V10M13,12H11V14H13V12M22,4V16A2,2 0 0,1 20,18H6L2,22V4A2,2 0 0,1 4,2H20A2,2 0 0,1 22,4M20,4H4V17.2L5.2,16H20V4Z" style="fill:currentcolor"></path></svg>
+        <h3 class="text-[16px] 2xl:text-[20px] font-bold text-[#333333]">중복 의심 응답</h3>
+      </div>
+      <button onclick="closeModal()" aria-label="닫기" class="text-gray-500 hover:text-gray-700"><svg viewBox="0 0 24 24" style="width:24px;height:24px"><path d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" style="fill:currentcolor"></path></svg></button>
+    </div>
+    <div id="modalBody" class="px-6 py-4 overflow-auto"></div>
+    <div class="px-6 py-4 border-t border-gray-200 flex justify-center gap-3">
+      <button onclick="closeModal()" class="h-[36px] px-[20px] rounded border border-gray-300 text-gray-600 bg-white text-[13px] 2xl:text-[15px] hover:brightness-95">취소</button>
+      <button onclick="saveModal()" class="h-[36px] px-[20px] rounded bg-[#48aa66] text-white text-[13px] 2xl:text-[15px] hover:brightness-95">저장</button>
+    </div>
+  </div>
+</div>
 
+<script>
 const P={pain:"text-[#ce4e1f] bg-[#ffedd5] border-[#ce4e1f]/30",mng:"text-[#4c9eeb] bg-[#d1e6fe] border-[#4c9eeb]/30"};
-const rows=[
+let rows=[
  {name:"홍길동",age:41,at:"2026-06-01 15:22",tags:[["무증상","ok"]]},
  {name:"김민준",age:30,at:"2026-06-10 09:14",tags:[["무증상","ok"]]},
  {name:"홍길동",age:41,at:"2026-06-12 10:30",tags:[["관리대상자(허리)","mng"]]},
@@ -138,30 +152,61 @@ const rows=[
  {name:"이영희",age:38,at:"2026-06-23 16:05",tags:[["관리대상자(팔)","mng"]]},
  {name:"김민준",age:30,at:"2026-06-24 11:20",tags:[["관리대상자(목,어깨)","mng"]]},
 ];
-rows.sort((a,b)=>a.at<b.at?-1:1);
-const cnt={};rows.forEach(r=>{const k=r.name+"|"+r.age;cnt[k]=(cnt[k]||0)+1;});
-const dupMark=r=>{const n=cnt[r.name+"|"+r.age];return n>1?`<span class="inline-flex items-center mr-1 align-middle text-[#b45309]" title="중복 의심 — 성명·나이·부서가 같은 응답이 ${n}건 있습니다. 동일인의 중복 제출 또는 동명이인일 수 있어 확인이 필요합니다."><svg viewBox="0 0 24 24" class="w-[13px] 2xl:w-[16px]"><path d="M3.9,12C3.9,10.29 5.29,8.9 7,8.9H11V7H7A5,5 0 0,0 2,12A5,5 0 0,0 7,17H11V15.1H7C5.29,15.1 3.9,13.71 3.9,12M8,13H16V11H8V13M17,7H13V8.9H17C18.71,8.9 20.1,10.29 20.1,12C20.1,13.71 18.71,15.1 17,15.1H13V17H17A5,5 0 0,0 22,12A5,5 0 0,0 17,7Z" style="fill:currentcolor"></path></svg><span class="ml-0.5 px-1.5 py-px rounded-full bg-[#fef3c7] text-[#b45309] text-[10px] 2xl:text-[12px] font-semibold border border-[#f0b429]/50">${n}</span></span>`:"";};
+rows.forEach((r,i)=>r.id=i+1);
+
+const ALERT='<svg viewBox="0 0 24 24" class="w-[16px] 2xl:w-[19px]"><path d="M13,10H11V6H13V10M13,12H11V14H13V12M22,4V16A2,2 0 0,1 20,18H6L2,22V4A2,2 0 0,1 4,2H20A2,2 0 0,1 22,4M20,4H4V17.2L5.2,16H20V4Z" style="fill:currentcolor"></path></svg>';
+const RESULT='<svg viewBox="0 0 24 24" class="w-[20px] 2xl:w-[24px]"><path d="M5,4H19A2,2 0 0,1 21,6V18A2,2 0 0,1 19,20H5A2,2 0 0,1 3,18V6A2,2 0 0,1 5,4M5,8V12H11V8H5M13,8V12H19V8H13M5,14V18H11V14H5M13,14V18H19V14H13Z" style="fill:currentcolor"></path></svg>';
+const TRASH='<svg viewBox="0 0 24 24" style="width:1.5rem;height:1.5rem"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" style="fill:currentcolor"></path></svg>';
+const RESTORE='<svg viewBox="0 0 24 24" style="width:1.5rem;height:1.5rem"><path d="M13,3A9,9 0 0,0 4,12H1L4.89,15.89L4.96,16.03L9,12H6A7,7 0 0,1 13,5A7,7 0 0,1 20,12A7,7 0 0,1 13,19C11.07,19 9.32,18.21 8.06,16.94L6.64,18.36C8.27,20 10.5,21 13,21A9,9 0 0,0 22,12A9,9 0 0,0 13,3Z" style="fill:currentcolor"></path></svg>';
+
 const pill=t=>`<span class="inline-block flex-shrink-0 px-3.5 py-1 rounded-full font-semibold border ${P[t[1]]}">${t[0]}</span>`;
 const judge=tags=>tags.every(t=>t[1]==="ok")?'<span class="text-[#333333]">-</span>':`<div class="flex justify-center w-full gap-2">${tags.filter(t=>t[1]!=="ok").map(pill).join("")}</div>`;
 const tdC="px-4 py-2 2xl:py-3 border-b text-center text-[11px] 2xl:text-[15px] text-[#333333] font-normal border-[#dadee0]/45";
-document.getElementById("rows").innerHTML=rows.map(r=>`<tr class="hover:bg-[#e9eeeb] bg-[#f6f8f6]">
- <td class="${tdC} border-r whitespace-nowrap"><span class="inline-flex items-center justify-center">${dupMark(r)}${r.name}</span></td>
- <td class="${tdC} border-r">${r.age}</td>
- <td class="${tdC} border-r whitespace-nowrap" style="font-variant-numeric:tabular-nums">${r.at}</td>
- <td class="${tdC} border-r">${judge(r.tags)}</td>
- <td class="${tdC} border-r !px-0"><button class="flex hover:bg-gray-100 p-[4px] 2xl:p-[8px] mx-auto justify-center items-center text-[#48aa66] border-[#48aa66] rounded border bg-white" aria-label="결과"><svg viewBox="0 0 24 24" class="w-[20px] 2xl:w-[24px]"><path d="M5,4H19A2,2 0 0,1 21,6V18A2,2 0 0,1 19,20H5A2,2 0 0,1 3,18V6A2,2 0 0,1 5,4M5,8V12H11V8H5M13,8V12H19V8H13M5,14V18H11V14H5M13,14V18H19V14H13Z" style="fill:currentcolor"></path></svg></button></td>
- <td class="${tdC}"><button aria-label="삭제"><svg viewBox="0 0 24 24" class="text-gray-400 hover:text-[#e53e3e]" style="width:1.5rem;height:1.5rem"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" style="fill:currentcolor"></path></svg></button></td>
-</tr>`).join("");
+
+function dupKey(r){return r.name+"|"+r.age;}
+function render(){
+ rows.sort((a,b)=>a.at<b.at?-1:1);
+ const cnt={};rows.forEach(r=>{cnt[dupKey(r)]=(cnt[dupKey(r)]||0)+1;});
+ const mark=r=>cnt[dupKey(r)]>1?`<button type="button" onclick="openModal('${dupKey(r)}')" class="inline-flex items-center mr-1 align-middle text-[#b45309] hover:text-[#92400e]" title="중복 의심 응답 보기">${ALERT}</button>`:"";
+ document.getElementById("rows").innerHTML=rows.map(r=>`<tr class="hover:bg-[#e9eeeb] bg-[#f6f8f6]">
+  <td class="${tdC} border-r whitespace-nowrap"><span class="inline-flex items-center justify-center">${mark(r)}${r.name}</span></td>
+  <td class="${tdC} border-r">${r.age}</td>
+  <td class="${tdC} border-r whitespace-nowrap" style="font-variant-numeric:tabular-nums">${r.at}</td>
+  <td class="${tdC} border-r">${judge(r.tags)}</td>
+  <td class="${tdC} border-r !px-0"><button class="flex hover:bg-gray-100 p-[4px] 2xl:p-[8px] mx-auto justify-center items-center text-[#48aa66] border-[#48aa66] rounded border bg-white" aria-label="결과">${RESULT}</button></td>
+  <td class="${tdC}"><button aria-label="삭제" class="text-gray-400 hover:text-[#e53e3e]">${TRASH}</button></td>
+ </tr>`).join("");
+}
+
+let modalKey=null,pend=new Set();
+function openModal(key){modalKey=key;pend=new Set();renderModal();document.getElementById("modal").classList.remove("hidden");}
+function closeModal(){document.getElementById("modal").classList.add("hidden");modalKey=null;pend=new Set();}
+function toggleDel(id){id=+id;pend.has(id)?pend.delete(id):pend.add(id);renderModal();}
+function saveModal(){rows=rows.filter(r=>!pend.has(r.id));closeModal();render();}
+function renderModal(){
+ const grp=rows.filter(r=>dupKey(r)===modalKey);
+ const mth="px-4 py-2.5 text-[11px] 2xl:text-[14px] font-medium text-[#ababab] border-y border-[#dadee0]/70 bg-[#f6f8f6]";
+ const mtd="px-4 py-2.5 border-b border-[#dadee0]/45 text-center text-[12px] 2xl:text-[15px] text-[#333333]";
+ document.getElementById("modalBody").innerHTML=`
+ <table class="w-full border-separate [border-spacing:0]"><thead><tr>
+   <th class="${mth}">구성원명</th><th class="${mth} w-[60px]">나이</th><th class="${mth} w-[170px]">응답일시</th><th class="${mth} w-[70px]">결과</th><th class="${mth} w-[60px]">삭제</th>
+ </tr></thead><tbody>${grp.map(r=>{const d=pend.has(r.id);return `<tr class="${d?'opacity-40':''}">
+   <td class="${mtd} ${d?'line-through':''}">${r.name}</td>
+   <td class="${mtd} ${d?'line-through':''}">${r.age}</td>
+   <td class="${mtd} ${d?'line-through':''} whitespace-nowrap" style="font-variant-numeric:tabular-nums">${r.at}</td>
+   <td class="${mtd}"><button class="flex hover:bg-gray-100 p-[4px] mx-auto justify-center items-center text-[#48aa66] border border-[#48aa66] rounded bg-white" aria-label="결과">${RESULT}</button></td>
+   <td class="${mtd}"><button onclick="toggleDel(${r.id})" class="${d?'text-[#48aa66]':'text-gray-400 hover:text-[#e53e3e]'}" aria-label="${d?'복원':'삭제'}" title="${d?'삭제 취소':'삭제'}">${d?RESTORE:TRASH}</button></td>
+ </tr>`;}).join("")}</tbody></table>
+ <p class="mt-3 text-[11px] 2xl:text-[13px] text-gray-500">삭제할 행의 휴지통을 누른 뒤 아래 <b class="font-semibold text-[#333]">저장</b>을 누르면 목록에서도 삭제됩니다.</p>`;
+}
 
 const toggle='<button class="mr-1.5 p-0.5 rounded flex items-center justify-center border border-gray-300" style="width:16px;height:16px"><svg viewBox="0 0 24 24" class="text-[#838383]" style="width:.75rem;height:.75rem"><path d="M19,13H5V11H19V13Z" style="fill:currentcolor"></path></svg></button>';
 const tnode=(label,pad,active,leaf)=>`<div class="flex w-full items-center py-2 2xl:py-[10px] px-2 2xl:px-[5px] rounded-md cursor-pointer text-[10.5px] 2xl:text-[13.97px] ${active?'bg-[#4fb26d1a] text-[#4fb26d] font-bold':'text-[#979797] hover:bg-[#00000008]'}" style="padding-left:${pad}px">${leaf?'<span style="width:10px;display:inline-block"></span>':toggle}<span class="select-none">${label}</span></div>`;
 document.getElementById("tree").innerHTML=
- tnode("5. 보고서 테스트",5,true,false)+
- tnode("생산부",18,false,false)+
- tnode("생산1팀",31,false,true)+
- tnode("품질관리부",18,false,false)+
- tnode("품질보증과",31,false,false)+
- tnode("인증표준팀",44,false,true);
+ tnode("5. 보고서 테스트",5,true,false)+tnode("생산부",18,false,false)+tnode("생산1팀",31,false,true)+
+ tnode("품질관리부",18,false,false)+tnode("품질보증과",31,false,false)+tnode("인증표준팀",44,false,true);
+
+render();
 </script>
 </body>
 </html>
