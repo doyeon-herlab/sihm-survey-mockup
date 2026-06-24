@@ -10,7 +10,7 @@
 html,body{margin:0;height:100%;background:#f5f8f6;overflow:hidden;}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
 #fit{width:100%;overflow:hidden;}
-#page{width:1280px;transform-origin:top left;position:relative;display:flex;flex-direction:column;font-family:"Pretendard",-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:#f5f8f6;color:#1F2937;line-height:1.5;}
+#page{width:1536px;transform-origin:top left;position:relative;display:flex;flex-direction:column;font-family:"Pretendard",-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:#f5f8f6;color:#1F2937;line-height:1.5;}
 #page *{box-sizing:border-box;}
 .gnb{display:flex;align-items:center;justify-content:space-between;height:64px;flex:none;background:#fff;padding:0 24px;border-bottom:1px solid #E5E7EB;}
 .gtab{font-size:16px;font-weight:500;color:#979797;}
@@ -158,12 +158,12 @@ rows.forEach(r=>{
   <td><button class="tbtn ghost" aria-label="삭제"><i class="mdi mdi-trash-can-outline"></i></button></td>`;
  tb.appendChild(tr);
 });
-const MAX_SCALE=1.4;
+const BASE_W=1536,MAX_SCALE=1.4;
 const fit=()=>{
  const f=document.getElementById("fit"),p=document.getElementById("page");
  const w=document.documentElement.clientWidth,h=document.documentElement.clientHeight;
- const s=Math.min(MAX_SCALE,w/1280);
- const x=Math.max(0,(w-1280*s)/2);
+ const s=Math.min(MAX_SCALE,w/BASE_W);
+ const x=Math.max(0,(w-BASE_W*s)/2);
  p.style.minHeight=(h/s)+"px";
  p.style.transform="translateX("+x+"px) scale("+s+")";
  f.style.width=w+"px";
