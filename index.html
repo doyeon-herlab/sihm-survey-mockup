@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIHM 근골격계 설문조사 목록 — 재기획 목업</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+<style>
+:root{--border-radius-lg:12px;}
+html,body{margin:0;background:#e9ece9;}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+#page{width:1280px;transform-origin:top left;position:relative;font-family:"Pretendard",-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:#f5f8f6;color:#1F2937;line-height:1.5;}
+#page *{box-sizing:border-box;}
+.gnb{display:flex;align-items:center;justify-content:space-between;height:64px;background:#fff;padding:0 24px;border-bottom:1px solid #E5E7EB;}
+.gtab{font-size:16px;font-weight:500;color:#979797;}
+.gtab.on{color:#61b166;font-weight:700;border-bottom:2px solid #61b166;padding-bottom:8px;}
+.nav{width:200px;flex:none;background:#fff;border-right:1px solid #E5E7EB;padding:18px 16px;}
+.ncat{font-size:15px;font-weight:600;color:#6B7280;display:flex;align-items:center;gap:8px;margin:0 0 10px;}
+.ncat.on{color:#48aa66;}
+.nitem{font-size:14.5px;font-weight:500;color:#9CA3AF;padding:8px 10px;border-radius:4px;margin-bottom:2px;}
+.nitem.on{color:#48aa66;background:#edf6ef;}
+.tree{width:230px;flex:none;border:1px solid #E5E7EB;background:#fff;display:flex;flex-direction:column;}
+.tree-h{font-size:15px;font-weight:500;color:#6B7280;padding:13px 14px;border-bottom:1px solid #E5E7EB;}
+.tnode{display:flex;align-items:center;gap:5px;font-size:14px;color:#979797;padding:7px 10px;white-space:nowrap;}
+.tnode.on{color:#4fb26d;font-weight:700;background:rgba(79,178,109,0.10);}
+.tg{width:16px;height:16px;border:1px solid #D1D5DB;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;color:#838383;font-size:13px;flex:none;}
+.thead th{font-size:15px;font-weight:500;color:#9CA3AF;height:51px;text-align:center;padding:0 14px;white-space:nowrap;background:#F9FAFB;}
+.trow td{height:54px;font-size:15px;color:#1F2937;border-bottom:1px solid #E5E7EB;padding:0 14px;text-align:center;}
+.trow:hover{background:#E9EEEB;}
+.lbl{display:inline-flex;align-items:center;height:30px;border-radius:30px;font-size:14px;padding:0 13px;margin:2px 3px;}
+.chip{display:inline-flex;align-items:center;gap:5px;height:26px;border-radius:30px;font-size:13px;padding:0 12px;white-space:nowrap;}
+.dot{width:7px;height:7px;border-radius:50%;}
+.tbtn{width:40px;height:40px;border-radius:4px;border:1px solid #48AA66;background:#fff;color:#48AA66;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:24px;}
+.tbtn:hover{background:#F3F4F6;color:#3E8A56;border-color:#3E8A56;}
+.tbtn.ghost{border:none;color:#6B7280;}
+.tbtn.ghost:hover{color:#3E8A56;background:#F3F4F6;}
+.bp{height:38px;background:#48AA66;color:#fff;border:none;border-radius:4px;font-size:14px;padding:0 14px;display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-family:inherit;white-space:nowrap;}
+.bp:hover{background:#3E8A56;}
+.bo{height:38px;background:#fff;color:#4B5563;border:1px solid #D1D5DB;border-radius:4px;font-size:14px;padding:0 14px;display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-family:inherit;white-space:nowrap;}
+.bo:hover{background:#F3F4F6;}
+.back{width:32px;height:32px;border-radius:50%;border:1px solid #D1D5DB;background:#fff;display:inline-flex;align-items:center;justify-content:center;color:#6B7280;font-size:22px;flex:none;}
+</style>
+</head>
+<body>
+<h2 class="sr-only">SIHM 근골격계 설문조사 목록 재기획 목업 — 응답일시 컬럼, 응답 누적, 무증상 대시 표기, 응답률 100% 초과 시 파란 차트</h2>
+
+<div id="fit" style="width:100%;overflow:hidden;">
+<div id="page">
+
+  <div class="gnb">
+    <div style="display:flex;align-items:center;gap:36px;">
+      <span style="font-weight:700;color:#48AA66;font-size:22px;letter-spacing:1px;">SIHM</span>
+      <div style="display:flex;gap:32px;align-items:center;">
+        <span class="gtab">사업장 관리</span><span class="gtab">화학물질</span><span class="gtab on">근골격계 부담작업</span>
+      </div>
+    </div>
+    <span style="font-size:15px;font-weight:700;color:#3a3a3a;display:flex;align-items:center;gap:8px;">5. 보고서 테스트 <i class="mdi mdi-account-circle-outline" style="font-size:30px;color:#9CA3AF;"></i></span>
+  </div>
+
+  <div style="display:flex;align-items:stretch;">
+
+    <div class="nav">
+      <div class="ncat"><i class="mdi mdi-file-document-outline" style="font-size:21px;"></i> 작업 관리</div>
+      <div class="nitem" style="margin-bottom:14px;">부서별 작업 목록</div>
+      <div class="ncat on"><i class="mdi mdi-alert-outline" style="font-size:21px;"></i> 유해요인조사</div>
+      <div class="nitem on">조사 목록</div>
+      <div class="nitem" style="margin-bottom:14px;">조사 보고서</div>
+      <div class="ncat"><i class="mdi mdi-clipboard-text-outline" style="font-size:21px;"></i> 개선 활동</div>
+      <div class="nitem">개선대책 목록</div>
+      <div class="nitem">점검 보고서</div>
+    </div>
+
+    <div style="flex:1;min-width:0;padding:18px 20px;">
+
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:nowrap;">
+        <span class="back"><i class="mdi mdi-chevron-left"></i></span>
+        <span style="font-size:20px;color:#333;white-space:nowrap;">조사 목록</span>
+        <i class="mdi mdi-chevron-right" style="font-size:20px;color:#9CA3AF;"></i>
+        <span style="font-size:20px;font-weight:700;color:#333;white-space:nowrap;">수시조사_002</span>
+        <div style="flex:1;"></div>
+        <span style="display:inline-flex;align-items:center;gap:6px;font-size:14px;color:#0063F7;white-space:nowrap;">
+          <svg width="22" height="22" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="#E5E7EB" stroke-width="4"/><circle cx="18" cy="18" r="15" fill="none" stroke="#0063F7" stroke-width="4" stroke-dasharray="94.2" stroke-dashoffset="0" transform="rotate(-90 18 18)" stroke-linecap="round"/></svg>
+          175% (7/4)
+        </span>
+        <span class="chip" style="background:rgba(206,78,31,0.15);color:#CE4E1F;"><span class="dot" style="background:#CE4E1F;"></span>통증 2</span>
+        <span class="chip" style="background:rgba(92,121,201,0.15);color:#5C79C9;"><span class="dot" style="background:#5C79C9;"></span>관리 3</span>
+        <span class="chip" style="background:rgba(72,170,102,0.15);color:#3E8A56;"><span class="dot" style="background:#48AA66;"></span>무증상 2</span>
+        <div style="display:flex;align-items:center;gap:6px;height:38px;border:1px solid #D1D5DB;border-radius:4px;padding:0 12px;background:#fff;width:180px;flex:none;">
+          <i class="mdi mdi-magnify" style="font-size:20px;color:#9CA3AF;"></i><span style="font-size:13px;color:#9CA3AF;">검색(구성원명)</span>
+        </div>
+        <button class="bp"><i class="mdi mdi-plus" style="font-size:20px;"></i> 설문 링크 생성</button>
+        <button class="bo"><i class="mdi mdi-microsoft-excel" style="font-size:19px;color:#48AA66;"></i> 엑셀 다운로드</button>
+      </div>
+
+      <div style="display:flex;gap:16px;align-items:stretch;min-height:520px;">
+
+        <div class="tree">
+          <div class="tree-h">부서 목록</div>
+          <div style="padding:8px;flex:1;">
+            <div class="tnode on"><span class="tg">−</span> 5. 보고서 테스트</div>
+            <div class="tnode" style="padding-left:22px;"><span class="tg">−</span> 생산부</div>
+            <div class="tnode" style="padding-left:46px;">생산1팀</div>
+            <div class="tnode" style="padding-left:22px;"><span class="tg">−</span> 품질관리부</div>
+            <div class="tnode" style="padding-left:46px;"><span class="tg">−</span> 품질보증과</div>
+            <div class="tnode" style="padding-left:70px;">인증표준팀</div>
+          </div>
+          <div style="padding:10px;border-top:1px solid #F3F4F6;">
+            <div style="display:flex;align-items:center;justify-content:space-between;height:34px;border:1px solid #D1D5DB;border-radius:4px;padding:0 11px;">
+              <span style="font-size:13px;color:#9CA3AF;">검색</span><i class="mdi mdi-magnify" style="font-size:17px;color:#9CA3AF;"></i>
+            </div>
+          </div>
+        </div>
+
+        <div style="flex:1;min-width:0;background:#F6FAF8;border:1px solid #EEF2EE;">
+          <table style="width:100%;border-collapse:collapse;">
+            <thead class="thead"><tr>
+              <th>구성원명</th><th style="width:90px;">나이</th>
+              <th style="width:220px;">응답일시</th>
+              <th>유증상 부위 / 판정</th><th style="width:110px;">결과</th><th style="width:90px;">삭제</th>
+            </tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+const T={pain:{bg:"rgba(206,78,31,0.302)",fg:"#CE4E1F"},mng:{bg:"rgba(92,121,201,0.302)",fg:"#5C79C9"},ok:{bg:"rgba(72,170,102,0.22)",fg:"#3E8A56"}};
+const rows=[
+ {name:"홍길동",age:41,at:"2026-06-01 15:22",tags:[["무증상","ok"]]},
+ {name:"김민준",age:30,at:"2026-06-10 09:14",tags:[["무증상","ok"]]},
+ {name:"홍길동",age:41,at:"2026-06-12 10:30",tags:[["관리대상자(허리)","mng"]]},
+ {name:"오세준",age:34,at:"2026-06-20 09:58",tags:[["통증호소자(팔)","pain"]]},
+ {name:"홍길동",age:41,at:"2026-06-22 13:47",tags:[["통증호소자(허리)","pain"]]},
+ {name:"이영희",age:38,at:"2026-06-23 16:05",tags:[["관리대상자(팔)","mng"]]},
+ {name:"김민준",age:30,at:"2026-06-24 11:20",tags:[["관리대상자(목,어깨)","mng"]]},
+];
+rows.sort((a,b)=>a.at<b.at?-1:1);
+const pill=t=>`<span class="lbl" style="background:${T[t[1]].bg};color:${T[t[1]].fg};">${t[0]}</span>`;
+const judge=tags=>tags.every(t=>t[1]==="ok")?'<span style="color:#9CA3AF;">-</span>':tags.filter(t=>t[1]!=="ok").map(pill).join("");
+const tb=document.getElementById("rows");
+rows.forEach(r=>{
+ const tr=document.createElement("tr");tr.className="trow";
+ tr.innerHTML=`<td>${r.name}</td><td style="color:#6B7280;">${r.age}</td>
+  <td style="white-space:nowrap;"><span style="font-variant-numeric:tabular-nums;">${r.at}</span></td>
+  <td>${judge(r.tags)}</td>
+  <td><button class="tbtn" aria-label="결과"><i class="mdi mdi-table"></i></button></td>
+  <td><button class="tbtn ghost" aria-label="삭제"><i class="mdi mdi-trash-can-outline"></i></button></td>`;
+ tb.appendChild(tr);
+});
+const fit=()=>{const f=document.getElementById("fit"),p=document.getElementById("page");const w=f.clientWidth||1280;const s=Math.min(1,w/1280);p.style.transform="scale("+s+")";f.style.height=(p.offsetHeight*s)+"px";};
+fit();window.addEventListener("resize",fit);setTimeout(fit,300);setTimeout(fit,900);setTimeout(fit,1600);
+</script>
+</body>
+</html>
