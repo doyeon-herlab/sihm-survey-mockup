@@ -125,7 +125,7 @@ html,body{font-family:"Pretendard",-apple-system,BlinkMacSystemFont,system-ui,"A
 </div></div>
 
 <script>
-const TH=["구성원명|140","나이|70","응답일시|200","유증상 부위 / 판정|240","결과|80","삭제|70"];
+const TH=["구성원명|180","나이|70","응답일시|200","유증상 부위 / 판정|230","결과|80","삭제|70"];
 document.getElementById("thead").innerHTML=TH.map((c,i)=>{const[t,w]=c.split("|");return `<th class="px-4 py-3 2xl:py-4 text-[11px] 2xl:text-[15px] font-medium text-[#ababab] tracking-wider border-t ${i<TH.length-1?'border-r':''} border-b border-[#dadee0]/70 bg-[#f6f8f6] w-[${w}px]"><div class="flex items-center w-full justify-center leading-tight">${t}</div></th>`;}).join("");
 
 const P={pain:"text-[#ce4e1f] bg-[#ffedd5] border-[#ce4e1f]/30",mng:"text-[#4c9eeb] bg-[#d1e6fe] border-[#4c9eeb]/30"};
@@ -139,11 +139,13 @@ const rows=[
  {name:"김민준",age:30,at:"2026-06-24 11:20",tags:[["관리대상자(목,어깨)","mng"]]},
 ];
 rows.sort((a,b)=>a.at<b.at?-1:1);
+const cnt={};rows.forEach(r=>{const k=r.name+"|"+r.age;cnt[k]=(cnt[k]||0)+1;});
+const dupMark=r=>{const n=cnt[r.name+"|"+r.age];return n>1?`<span class="inline-flex items-center mr-1 align-middle text-[#b45309]" title="중복 의심 — 성명·나이·부서가 같은 응답이 ${n}건 있습니다. 동일인의 중복 제출 또는 동명이인일 수 있어 확인이 필요합니다."><svg viewBox="0 0 24 24" class="w-[13px] 2xl:w-[16px]"><path d="M3.9,12C3.9,10.29 5.29,8.9 7,8.9H11V7H7A5,5 0 0,0 2,12A5,5 0 0,0 7,17H11V15.1H7C5.29,15.1 3.9,13.71 3.9,12M8,13H16V11H8V13M17,7H13V8.9H17C18.71,8.9 20.1,10.29 20.1,12C20.1,13.71 18.71,15.1 17,15.1H13V17H17A5,5 0 0,0 22,12A5,5 0 0,0 17,7Z" style="fill:currentcolor"></path></svg><span class="ml-0.5 px-1.5 py-px rounded-full bg-[#fef3c7] text-[#b45309] text-[10px] 2xl:text-[12px] font-semibold border border-[#f0b429]/50">${n}</span></span>`:"";};
 const pill=t=>`<span class="inline-block flex-shrink-0 px-3.5 py-1 rounded-full font-semibold border ${P[t[1]]}">${t[0]}</span>`;
 const judge=tags=>tags.every(t=>t[1]==="ok")?'<span class="text-[#333333]">-</span>':`<div class="flex justify-center w-full gap-2">${tags.filter(t=>t[1]!=="ok").map(pill).join("")}</div>`;
 const tdC="px-4 py-2 2xl:py-3 border-b text-center text-[11px] 2xl:text-[15px] text-[#333333] font-normal border-[#dadee0]/45";
 document.getElementById("rows").innerHTML=rows.map(r=>`<tr class="hover:bg-[#e9eeeb] bg-[#f6f8f6]">
- <td class="${tdC} border-r whitespace-nowrap overflow-hidden text-ellipsis">${r.name}</td>
+ <td class="${tdC} border-r whitespace-nowrap"><span class="inline-flex items-center justify-center">${dupMark(r)}${r.name}</span></td>
  <td class="${tdC} border-r">${r.age}</td>
  <td class="${tdC} border-r whitespace-nowrap" style="font-variant-numeric:tabular-nums">${r.at}</td>
  <td class="${tdC} border-r">${judge(r.tags)}</td>
